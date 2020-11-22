@@ -1,6 +1,6 @@
 ############### OOP approach ####################
 class Award
-  attr_reader :name, :has_expired
+  attr_reader :name
   attr_accessor :expires_in, :quality
 
   def initialize(name, expires_in, quality)
@@ -22,6 +22,10 @@ class Award
     end
   end
 
+  # Defining if the award has expired if expires_in is equal to 0
+  def has_expired
+    self.expires_in < 0
+  end
 
   # Setting base value for quality score
   def quality_score
@@ -31,13 +35,6 @@ class Award
       @quality
     end
   end
-
-
-  # Defining if the award has expired if expires_in is equal to 0
-  def has_expired
-    self.expires_in < 0
-  end
-
 
   # Update the award expiration and the quality unless it is a
   # Blue Distinction Plus award, which will always have a score of 80
@@ -53,16 +50,33 @@ class Award
     self.expires_in -= 1
   end
 
-
-  # Updating the quality
+  # Calculating the amount needed to appropriately update the quality
   def update_quality
+    if self.name == "Blue Compare" && has_expired
+      self.quality = 0
+      return
+    end
 
+    case self.name
+    when "Blue Star"
+      self.quality -= 2
+    when "Blue First"
+      self.quality += 1
+    when "Blue Compare"
+      if expires_in < 5
+        self.quality += 3
+      elsif expires_in < 10
+        self.quality += 2
+      else
+        self.quality += 1
+      end
+    else
+      self.quality -= 1
+    end
+
+    quality_bounds
 
   end
-
-
-
-
 
 end
 
