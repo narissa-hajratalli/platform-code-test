@@ -1,5 +1,11 @@
 require 'award'
 
+############### OOP approach ####################
+
+
+
+############### Legacy code ####################
+=begin
 def update_quality(awards)
   awards.each do |award|
     if award.name != 'Blue First' && award.name != 'Blue Compare'
@@ -47,3 +53,4 @@ def update_quality(awards)
     end
   end
 end
+=end
