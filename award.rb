@@ -22,7 +22,7 @@ class Award
     end
   end
 
-  # Defining if the award has expired if expires_in is equal to 0
+  # Defining if the award has expired if expires_in is less than 0
   def has_expired
     self.expires_in < 0
   end
@@ -45,7 +45,7 @@ class Award
     end
   end
 
-  # Updating the expiration date as it decreases by 1 each day
+  # Updating expires_in, as it decreases by 1 each day
   def update_expiration
     self.expires_in -= 1
   end
