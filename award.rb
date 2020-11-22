@@ -57,40 +57,41 @@ class Award
       return
     end
 
+    # If the award has expired, the quality will decrease by a magnitude
+    # of 2; if the award hasn't expired, quality will decrease by a magnitude of 1
+    magnitude = has_expired ? 2 : 1
+
+    change = magnitude * amount_change
+
+    if name == "Blue First" || name == "Blue Compare"
+      self.quality = [quality + change, 50].min
+    else
+      self.quality = [quality - change, 0].max
+    end
+  end
+
+  # Defining the amount that quality needs to be changed by based
+  # on the name of the award
+  def amount_change
     case self.name
     when "Blue Star"
-      self.quality -= 2
+      2
     when "Blue First"
-      self.quality += 1
+      1
     when "Blue Compare"
       if expires_in < 5
-        self.quality += 3
+        3
       elsif expires_in < 10
-        self.quality += 2
+        2
       else
-        self.quality += 1
+        1
       end
     else
-      self.quality -= 1
+      1
     end
-
-    quality_bounds
-
   end
 
 end
-
-############### Explanation ####################
-=begin
-First, the award name is only given readability access because the name will be assigned based on the type
-of award (Blue Star, etc.)
-
-The value of expires_in will be calculated based on the current date and quality will be calculated based
-on expired_in.
-
-
-=end
-
 
 ################ Legacy code ###################
 =begin

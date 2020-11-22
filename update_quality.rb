@@ -1,17 +1,14 @@
 require 'award'
 
 ############### OOP approach ####################
+# The loop iterates over each award and performs the 'update' function
+# on that award, as defined in award.rb.
 def update_quality(awards)
   awards.each do
     |award|
     award.update
   end
 end
-
-################ Explanation ###################
-=begin
-The loop iterates over each award and performs the 'update' function on that award, as defined in award.rb.
-=end
 
 ############### Legacy code ####################
 =begin
